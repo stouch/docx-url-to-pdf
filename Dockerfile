@@ -16,8 +16,8 @@ RUN apt install -y nodejs
 RUN mkdir /tmp/generated_pdfs
 RUN mkdir /tmp/uploaded_docx
 RUN mkdir /tmp/libreoffice_profiles
-RUN mkdir /docx-to-pdf
-WORKDIR /docx-to-pdf
+RUN mkdir /docx-url-to-pdf
+WORKDIR /docx-url-to-pdf
 
 COPY ./package.json .
 COPY ./yarn.lock .

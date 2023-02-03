@@ -11,9 +11,9 @@ export const start_express: () => void = () => {
 
 	server.get
 
-	server.post('/docx-to-pdf', (req, res) =>
+	server.post('/docx-url-to-pdf', (req, res) =>
 		docx_to_pdf_handler(
-			req.files,
+			req.body,
 			logger,
 			function onError({ status, message }) {
 				logger(`HTTP: ${status}, Message: ${message}`)

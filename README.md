@@ -15,26 +15,24 @@ After building the image and upping the container, you can inspect the logs by r
 docker-compose logs -tf --tail=100 pdf_generator
 ```
 
-The api will be exposed at `localhost:9999/docx-to-pdf`
+The api will be exposed at `localhost:9999/docx-url-to-pdf`
 
 ## Example Request (cURL)
 ```sh
-curl --location --request POST 'http://localhost:9999/docx-to-pdf' \
---form 'document=@"/C:/contract.docx"'
+curl --location --request POST 'http://localhost:9999/docx-url-to-pdf' \
+  -H "Content-Type: application/json"
+  -d '{"url": "https://example.com/file.docx"}'
 ```
 
 ## Example Request (JavaScript)
 ```js
-const formdata = new FormData();
-formdata.append("document", fileInput.files[0], "/C:/contract.docx");
-
 const requestOptions = {
   method: 'POST',
-  body: formdata,
+  body: JSON.stringify({url: 'https://example.com/file.docx'}),
   redirect: 'follow'
 };
 
-fetch("http://localhost:9999/docx-to-pdf", requestOptions)
+fetch("http://localhost:9999/docx-url-to-pdf", requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
