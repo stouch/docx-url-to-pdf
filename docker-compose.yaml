@@ -1,7 +1,7 @@
 services:
-  pdf_generator:
-    image: pdf_generator
-    container_name: pdf_generator
+  docx_url_to_pdf:
+    image: docx_url_to_pdf
+    container_name: docx_url_to_pdf
     build: ./
     # entrypoint: ['yarn', 'start']
     environment:
@@ -12,5 +12,5 @@ services:
     ports:
       - "9999:9999"
     volumes:
-      - ./src:/root/pdf_generator/src
+      - ./src:/root/docx_url_to_pdf/src
       - ./fonts:/usr/share/fonts/custom # All custom fonts go here

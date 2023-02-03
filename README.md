@@ -12,7 +12,7 @@ $ docker-compose up -d --build
 
 After building the image and upping the container, you can inspect the logs by running
 ```sh
-docker-compose logs -tf --tail=100 pdf_generator
+docker-compose logs -tf --tail=100 docx_url_to_pdf
 ```
 
 The api will be exposed at `localhost:9999/docx-url-to-pdf`

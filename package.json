@@ -1,5 +1,5 @@
 {
-  "name": "pdf_generator",
+  "name": "docx_url_to_pdf",
   "version": "1.0.0",
   "description": "doxc to pdf converter that uses liberoffice under the hood, exposing an HTTP endpoint as API",
   "main": "index.js",
