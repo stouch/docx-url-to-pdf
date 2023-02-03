@@ -21,7 +21,7 @@ export const docx_to_pdf_handler: (
 		}
 
 		const tmpDownloadedFilePath = TEMPORARY_UPLOAD_PATH + '/' + uuidv4();
-		https.get(body.url, (res) => {
+		https.get(body.url, (res: any) => {
 			const filePath = fs.createWriteStream(tmpDownloadedFilePath);
 			res.pipe(filePath);
 			filePath.on('finish',() => {
