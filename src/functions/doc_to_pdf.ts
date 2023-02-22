@@ -13,9 +13,15 @@ const random_str: (length: number) => string = (length) => {
 	
 
 export const doc_to_pdf: (docx_path: string, logger: logger_function_type, fk: (err: ExecException) => void, sk: (pdfPath: string) => void) => void 
-	= (docx_path, logger, fk, sk) => 
+	= (docx_path, logger, fk, sk) => {
 		// docx path is a temporary file, not a user input
-		exec(`
+		
+		// Because of https://bugs.documentfoundation.org/show_bug.cgi?id=95843
+		// and https://bugs.documentfoundation.org/show_bug.cgi?id=117523
+		// and https://jira.xwiki.org/browse/XDOCKER-53
+		// ...
+		// We just have to regularly restart docker (exit on fork error in ) because it s gonna create many zombie process..
+		const child = exec(`
 			libreoffice \
 				-env:UserInstallation=file://${TEMPORARY_LIBREOFFICE_PROFILES_PATH}/${random_str(20)} \
 				--headless \
@@ -24,6 +30,10 @@ export const doc_to_pdf: (docx_path: string, logger: logger_function_type, fk: (
 				"${docx_path}" 
 			`, (err) => {
 				if (err) {
+					logger(`${err}`);
+					if(`${err}`.indexOf('annot fork') > -1){
+						throw new Error('Must kill container for a restart because of zombie process');
+					}
 					fk(err);
 					return;
 				}
@@ -32,5 +42,6 @@ export const doc_to_pdf: (docx_path: string, logger: logger_function_type, fk: (
 				const pdf_path = `${TEMPORARY_PDF_PATH}/${docx_name}.pdf`
 				sk(pdf_path);
 			}
-		)
+		);
+	}
 		

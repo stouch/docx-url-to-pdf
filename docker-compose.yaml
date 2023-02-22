@@ -14,3 +14,4 @@ services:
     volumes:
       - ./src:/root/docx_url_to_pdf/src
       - ./fonts:/usr/share/fonts/custom # All custom fonts go here
+    restart: always
