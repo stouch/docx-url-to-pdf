@@ -7,7 +7,10 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN curl -fsSL https://deb.nodesource.com/setup_17.x | bash -
 RUN apt-key adv --keyserver hkps://keyserver.ubuntu.com --recv-keys 83FBA1751378B444
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN echo "deb http://ppa.launchpad.net/libreoffice/libreoffice-7-0/ubuntu focal main" | tee /etc/apt/sources.list.d/libreoffice.list
+RUN echo "deb http://ppa.launchpad.net/libreoffice/libreoffice-7-5/ubuntu focal main" | tee /etc/apt/sources.list.d/libreoffice.list
+# Signing key is here : https://launchpad.net/~libreoffice/+archive/ubuntu/libreoffice-7-5
+#  then https://keyserver.ubuntu.com/pks/lookup?fingerprint=on&op=index&search=0xCDDE43BA4DE3F09D7CE7016673AEE920AD55F5A0
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 73AEE920AD55F5A0
 RUN apt update
 RUN apt install -y libreoffice
 RUN apt install -y yarn
